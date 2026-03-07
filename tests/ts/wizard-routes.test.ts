@@ -14,6 +14,27 @@ async function loadModules() {
 }
 
 describe("novel init wizard routes", () => {
+  test("starts the wizard even when the request body is empty", async () => {
+    const home = fs.mkdtempSync(
+      path.join(os.tmpdir(), "xiaoshuo-wizard-routes-empty-"),
+    );
+    process.env.XIAOSHUO_HOME = home;
+
+    const { db, startRoute } = await loadModules();
+    db.resetDatabaseForTests();
+    db.ensureDatabase();
+
+    const startResponse = await startRoute.POST(
+      new Request("http://localhost/api/wizard/start", {
+        method: "POST",
+      }),
+    );
+
+    expect(startResponse.status).toBe(200);
+    const started = await startResponse.json();
+    expect(started.question.id).toBe("book-title");
+  });
+
   test("supports start, answer, session preview, and finish", async () => {
     const home = fs.mkdtempSync(path.join(os.tmpdir(), "xiaoshuo-wizard-routes-"));
     process.env.XIAOSHUO_HOME = home;

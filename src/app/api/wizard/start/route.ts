@@ -10,7 +10,8 @@ const schema = z.object({
 });
 
 export async function POST(request: Request) {
-  const body = schema.parse(await request.json());
+  const raw = await request.text();
+  const body = schema.parse(raw ? JSON.parse(raw) : {});
   const result = await startWizardSession(body);
   return NextResponse.json(result);
 }
