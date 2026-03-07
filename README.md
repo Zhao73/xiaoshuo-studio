@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# xiaoshuo
 
-## Getting Started
+Local Codex studio for long-form fiction work. It combines:
 
-First, run the development server:
+- a Next.js dashboard for projects, references, style cards, and queued jobs
+- a canon memory layer for story bible, characters, timeline, foreshadowing, and open threads
+- a deterministic Python CLI for style analysis
+- repo-local Codex skills for planning, drafting, humanizing, review, study drills, and canon-aware chapter workflow
+
+`xiaoshuo` is designed for people who want one local writing workspace that can:
+
+- plan a novel from scratch through a guided wizard
+- build and update canon memory over long serial writing
+- import private reference novels for technique study
+- route Codex or Claude Code through one top-level skill instead of many scattered skill names
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verify
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+npm run build
+pytest tests/python -q
+```
 
-## Learn More
+## Codex requirement
 
-To learn more about Next.js, take a look at the following resources:
+This studio is designed for a locally installed and locally logged-in Codex CLI:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+codex --version
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The web app checks local Codex availability. It does not replace Codex login with a custom OpenAI API flow.
 
-## Deploy on Vercel
+## Python style-analysis contract
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The entrypoint is fixed to:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+python3 python/engine/cli.py analyze <file>
+```
+
+It prints a JSON object with:
+
+- `title`
+- `metrics`
+- `anti_ai_flags`
+- `style_summary`
+
+`metrics` includes at least:
+
+- `sentence_count`
+- `avg_sentence_length`
+- `dialogue_ratio`
+- `scene_breaks`
+- `sensory_density`
+
+Reference: [docs/style-analysis-contract.md](./docs/style-analysis-contract.md)
+
+## Repo-local skills
+
+Skills live in `.agents/skills/`:
+
+- `xiaoshuo-studio`
+- `webnovel-init`
+- `webnovel-import`
+- `webnovel-import-folder`
+- `webnovel-scrape`
+- `webnovel-analyze-style`
+- `webnovel-blend-style`
+- `webnovel-plan`
+- `webnovel-write`
+- `webnovel-humanize`
+- `webnovel-review`
+- `webnovel-learn`
+- `novel-load-context`
+- `novel-init-wizard`
+- `novel-plan-next`
+- `novel-draft-scene`
+- `novel-continuity-review`
+- `novel-update-canon`
+- `novel-style-learn`
+- `novel-anti-ai-pass`
+
+Reference: [docs/local-codex-studio.md](./docs/local-codex-studio.md)
+Tutorial: [docs/tutorial-zh.md](./docs/tutorial-zh.md)
+
+## Open-source skill bundle
+
+If you want one remembered entry point instead of many project skills, use:
+
+```bash
+npm run skills:export -- --target codex --mode aggregator-only
+```
+
+For a full export with the aggregator plus all child skills:
+
+```bash
+npm run skills:export -- --target codex --mode full-bundle
+```
+
+Switch `codex` to `claude` for Claude Code-style exports. If you want direct installation instead of a generated `dist/skills/...` folder, pass `--dest <your-skill-dir>`.
+
+## One-click local install
+
+After cloning the repo:
+
+```bash
+npm install
+npm run skills:install -- --target codex --mode aggregator-only
+```
+
+Install the full bundle instead:
+
+```bash
+npm run skills:install -- --target codex --mode full-bundle
+```
+
+Claude Code variant:
+
+```bash
+npm run skills:install -- --target claude --mode full-bundle
+```
+
+Defaults:
+
+- Codex installs to `~/.codex/skills` unless `CODEX_HOME` is set
+- Claude installs to `~/.claude/skills` unless `CLAUDE_HOME` is set
+
+## Style-learning guardrail
+
+This project is built to learn **technique**, not clone a named author voice. The intended flow is:
+
+1. import or capture references with provenance
+2. analyze them into reusable metrics
+3. convert metrics into style cards and anti-AI focus items
+4. write or revise using blended technique constraints
+5. turn review output into drills
+
+## Canon API
+
+Primary local routes for long-form memory:
+
+- `GET /api/canon?projectId=<id>`
+- `POST /api/canon/refresh`
+- `POST /api/chapters/brief`
+- `POST /api/chapters/continuity-check`
+- `POST /api/chapters/update-canon`
+
+## Local novel learning
+
+The studio now supports:
+
+- importing a whole local folder of `.txt` / `.md` novels
+- splitting imported files into chapter-like records
+- generating one style card per imported work
+- blending multiple style cards into a reusable mixed profile
+- persisting project canon snapshots as Markdown plus SQLite index rows
+- generating a chapter brief from canon + recent chapter summaries
+- checking draft continuity against known character and location state
+- updating canon after a chapter with structured patch data
+- running a deep planning wizard that creates a project, canon seed, volume outline, and chapter-one brief
+
+This is designed for **technique transfer**, not author cloning.

@@ -1,141 +1,364 @@
 .page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  padding: 3rem 1.5rem 4rem;
 }
 
 .main {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  margin: 0 auto;
+  display: grid;
+  max-width: 1280px;
+  gap: 1.5rem;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+.hero {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 0.9fr);
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
+.heroCopy,
+.heroStatus,
+.panel,
+.metricStrip article {
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.heroCopy {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  padding: 2.75rem;
+}
+
+.heroCopy::before {
+  position: absolute;
+  inset: -2rem auto auto -3rem;
+  height: 12rem;
+  width: 12rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(198, 90, 49, 0.28), transparent 65%);
+  content: "";
+}
+
+.heroCopy h1 {
+  max-width: 10ch;
+  font-family: var(--font-display), serif;
+  font-size: clamp(3rem, 5vw, 5.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.eyebrow {
+  margin-bottom: 1rem;
+  color: var(--accent);
+  font-size: 0.8rem;
   font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+  letter-spacing: 0.28em;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.lead {
+  margin-top: 1.25rem;
+  max-width: 54ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.85;
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
+.heroActions {
+  margin-top: 2rem;
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+  flex-wrap: wrap;
+  gap: 0.9rem;
 }
 
-.ctas a {
-  display: flex;
-  justify-content: center;
+.primaryCta,
+.contractChip,
+.submitButton {
+  display: inline-flex;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
+  gap: 0.65rem;
+  border-radius: 999px;
   border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.primaryCta {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff7f0;
+  padding: 0.95rem 1.25rem;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.contractChip {
+  border-color: var(--line);
+  background: rgba(255, 252, 247, 0.85);
+  color: var(--muted);
+  padding: 0.9rem 1rem;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
+.heroStatus {
+  display: grid;
+  gap: 1rem;
+  border-radius: 2rem;
+  padding: 1rem;
+}
 
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+.statusCard {
+  border-radius: 1.35rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 249, 240, 0.82);
+  padding: 1.15rem;
+}
+
+.statusLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.statusCard strong {
+  display: block;
+  font-size: 1.3rem;
+}
+
+.statusCard p,
+.statusCard small {
+  color: var(--muted);
+}
+
+.statusCard p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.metricStrip {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metricStrip article {
+  border-radius: 1.4rem;
+  padding: 1rem 1.1rem;
+}
+
+.metricStrip span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.metricStrip strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-family: var(--font-display), serif;
+  font-size: 2rem;
+}
+
+.workspace {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.panel {
+  border-radius: 1.8rem;
+  padding: 1.45rem;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.panelHeader h2 {
+  font-family: var(--font-display), serif;
+  font-size: 2rem;
+}
+
+.panelHeader p {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.formGrid {
+  margin-top: 1.15rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.formGrid label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.formGrid span {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.formGrid input,
+.formGrid select,
+.formGrid textarea {
+  min-height: 3rem;
+  border: 1px solid rgba(74, 43, 28, 0.12);
+  border-radius: 1rem;
+  background: rgba(255, 252, 246, 0.94);
+  color: var(--ink);
+  padding: 0.85rem 0.95rem;
+  outline: none;
+}
+
+.formGrid textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.submitButton {
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1rem;
+  background: #271814;
+  color: #fff3ea;
+}
+
+.list,
+.voiceStack {
+  margin-top: 1.2rem;
+}
+
+.list {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+}
+
+.list li,
+.voiceCard {
+  border-radius: 1.2rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 251, 244, 0.86);
+  padding: 1rem;
+}
+
+.list li strong,
+.voiceHead h3 {
+  font-size: 1rem;
+}
+
+.list li span {
+  display: inline-block;
+  margin: 0.35rem 0 0.55rem;
+  color: var(--accent);
+  font-size: 0.84rem;
+}
+
+.list li p,
+.voiceCard p,
+.contractText,
+.warningLine {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.voiceStack {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.voiceHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.9rem 0;
+}
+
+.tag {
+  border-radius: 999px;
+  background: rgba(129, 42, 31, 0.08);
+  color: var(--accent);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.82rem;
+}
+
+.focusList {
+  margin-top: 0.7rem;
+}
+
+.focusList strong {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.focusList ul {
+  padding-left: 1rem;
+  color: var(--ink);
+}
+
+.warningLine {
+  margin-top: 0.85rem;
+  color: var(--accent);
+}
+
+.contractText {
+  margin-top: 1rem;
+  font-size: 0.92rem;
+}
+
+.contractText code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.82rem;
+}
+
+.emptyState {
+  border: 1px dashed rgba(74, 43, 28, 0.22);
+  border-radius: 1.2rem;
+  padding: 1rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 1100px) {
+  .hero,
+  .workspace,
+  .metricStrip {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
+@media (max-width: 720px) {
   .page {
-    --background: #000;
-    --foreground: #000;
+    padding: 1rem 0.85rem 3rem;
+  }
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+  .heroCopy,
+  .panel,
+  .heroStatus {
+    padding: 1.1rem;
+  }
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+  .formGrid {
+    grid-template-columns: 1fr;
   }
 }

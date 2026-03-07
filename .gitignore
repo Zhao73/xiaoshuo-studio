@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/.xiaoshuo
+__pycache__/
+*.pyc
 
 # next.js
 /.next/
@@ -19,6 +22,8 @@
 
 # production
 /build
+/dist
+/storage
 
 # misc
 .DS_Store
