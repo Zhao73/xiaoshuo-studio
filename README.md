@@ -1,5 +1,8 @@
 # xiaoshuo
 
+[![CI](https://github.com/Zhao73/xiaoshuo-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Zhao73/xiaoshuo-studio/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+
 Local Codex studio for long-form fiction work. It combines:
 
 - a Next.js dashboard for projects, references, style cards, and queued jobs

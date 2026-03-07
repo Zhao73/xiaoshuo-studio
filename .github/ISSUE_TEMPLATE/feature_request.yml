@@ -1,0 +1,42 @@
+name: Feature Request
+description: Suggest a product, workflow, or skill improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow or limitation are you trying to improve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What change do you want?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any workaround or alternative you tried?
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Novel init wizard
+        - Canon memory
+        - Writing workflow
+        - Skill routing
+        - Skill export/install
+        - Documentation
+        - Other
+    validations:
+      required: true
