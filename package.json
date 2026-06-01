@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "demo:seed": "tsx scripts/seed-demo.ts",
     "skills:export": "tsx scripts/export-skills.ts",
     "skills:install": "tsx scripts/install-skills.ts",
     "test": "vitest run",

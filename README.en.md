@@ -65,6 +65,7 @@ flowchart TD
 | Goal | Command |
 | --- | --- |
 | Run locally | `npm install && npm run dev` |
+| Seed a playable demo | `npm run demo:seed && npm run dev` |
 | Verify locally | `npm run lint && npm test && npm run build && pytest tests/python -q` |
 | Export one remembered entry skill for Codex | `npm run skills:export -- --target codex --mode aggregator-only` |
 | Export full bundle for Codex | `npm run skills:export -- --target codex --mode full-bundle` |
@@ -77,6 +78,26 @@ Defaults:
 
 - Codex installs to `~/.codex/skills` unless `CODEX_HOME` is set
 - Claude installs to `~/.claude/skills` unless `CLAUDE_HOME` is set
+
+## Quick Start
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`, or the local port printed by Next.js.
+
+To see the studio with useful first-run content:
+
+```bash
+npm run demo:seed
+npm run dev
+```
+
+The seed command creates one idempotent local demo project, reference sample,
+style card, and queued planning job. Running it again will not duplicate the
+same demo.
 
 ## Top-level Skill
 

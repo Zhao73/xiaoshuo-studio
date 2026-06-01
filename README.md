@@ -74,6 +74,7 @@ flowchart TD
 | 目标 | 命令 |
 | --- | --- |
 | 本地开发运行 | `npm install && npm run dev` |
+| 预置一个可试玩 demo | `npm run demo:seed && npm run dev` |
 | 本地完整验证 | `npm run lint && npm test && npm run build && pytest tests/python -q` |
 | 为 Codex 导出一个总入口 skill | `npm run skills:export -- --target codex --mode aggregator-only` |
 | 为 Codex 导出完整 skill bundle | `npm run skills:export -- --target codex --mode full-bundle` |
@@ -95,6 +96,15 @@ npm run dev
 ```
 
 打开 `http://localhost:3000`，或者 Next.js 启动时显示的本地端口。
+
+想先看一个有内容的仪表盘，可以运行：
+
+```bash
+npm run demo:seed
+npm run dev
+```
+
+这个命令会创建一个幂等的本地示例项目、参考素材、风格卡和排队任务。重复运行不会重复插入同一个 demo。
 
 推荐第一轮使用顺序：
 
